@@ -1,4 +1,6 @@
 <html>
+<!-- @author Kanon Tonto -->
+<!-- @created 2025/02/08 -->
 <head>
   <style type="text/css">
     body {
@@ -9,8 +11,9 @@
       width: 100%;
     }
     .plate-body {
-      width: 50%;
+      width: 700px;
       height: 120px;
+      margin-top: 50px;
       margin-bottom: 100px;
       outline: solid white;
       display: flex;
@@ -24,12 +27,13 @@
     .plate-body_contents {
       width: 100%;
       padding-left: 20px;
-      animation: fluffy 30s infinite reverse;
+      animation: fluffy 30s ease-in-out infinite reverse;
     }
     .plate-body_id > p {
       color: white;
       font-size: 64px;
       font-family: "Gill Sans", sans-serif;
+      margin: 0;
     }
     .plate-body_live, .plate-body_clock > p {
       color: white;
@@ -73,21 +77,24 @@
       border: solid white;
       border-width: 7px;
     }
+    .plate-body_clock > p {
+      margin: 0;
+    }
     @keyframes fluffy {
       0% {
-        transform: translateY(-200px);
+        transform: translateY(-135px);
       }
       25% {
         transform: translateY(0);
       }
       50% {
-        transform: translateY(200px);
+        transform: translateY(135px);
       }
       75% {
         transform: translateY(0);
       }
       100% {
-        transform: translateY(-200px);
+        transform: translateY(-135px);
       }
     }
     @keyframes blink {
