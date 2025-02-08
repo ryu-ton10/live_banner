@@ -1,0 +1,68 @@
+<html>
+<head>
+  <style type="text/css">
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    .plate-body {
+      width: 40%;
+      height: 120px;
+      outline: solid red;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .plate-body_contents {
+      animation: fluffy 20s infinite reverse;
+    }
+    .plate-body_id > p {
+      color: red;
+      font-size: 64px;
+      font-family: "Gill Sans", sans-serif;
+    }
+    .plate-body_live, .plate-body_clock > p {
+      color: red;
+      font-size: 64px;
+      font-family: "Gill Sans", sans-serif;
+    }
+    @keyframes fluffy {
+      0% {
+        transform: translateY(-135px);
+      }
+      25% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(135px);
+      }
+      75% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-135px);
+      }
+    }
+  </style>
+  <script type="text/javascript">
+  </script>
+</head>
+<body>
+  <div class="plate-body">
+    <div class="plate-body_contents">
+      <div class="plate-body_id">
+        <p>@Hello World</p>
+      </div>
+      <div class="plate-body_live">
+        <p>Live</p>
+      </div>
+      <div class="plate-body_clock">
+        <p>10:10</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
