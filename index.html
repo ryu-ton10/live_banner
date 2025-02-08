@@ -3,66 +3,173 @@
   <style type="text/css">
     body {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       width: 100%;
     }
     .plate-body {
-      width: 40%;
+      width: 50%;
       height: 120px;
-      outline: solid red;
+      margin-bottom: 100px;
+      outline: solid white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+      overflow: hidden;
+      background: linear-gradient(to bottom right, blue, pink);
+      border-radius: 30px;
     }
     .plate-body_contents {
-      animation: fluffy 20s infinite reverse;
+      width: 100%;
+      padding-left: 20px;
+      animation: fluffy 30s infinite reverse;
     }
     .plate-body_id > p {
-      color: red;
+      color: white;
       font-size: 64px;
       font-family: "Gill Sans", sans-serif;
     }
     .plate-body_live, .plate-body_clock > p {
-      color: red;
+      color: white;
       font-size: 64px;
       font-family: "Gill Sans", sans-serif;
     }
+    .plate-body_live {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      animation: blink 2s ease-in-out infinite;
+    }
+    .plate-body_live_wave {
+      display: flex;
+      align-items: center;
+      padding-right: 20px;
+    }
+    .plate-body_live_wave1 {
+      width: 20px;
+      height: 70px;
+      overflow: hidden;
+    }
+    .plate-body_live_wave1 > .circle {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: solid white;
+      border-width: 7px;
+    }
+    .plate-body_live_wave2 {
+      width: 15px;
+      height: 50px;
+      overflow: hidden;
+    }
+    .plate-body_live_wave2 > .circle {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: solid white;
+      border-width: 7px;
+    }
     @keyframes fluffy {
       0% {
-        transform: translateY(-135px);
+        transform: translateY(-200px);
       }
       25% {
         transform: translateY(0);
       }
       50% {
-        transform: translateY(135px);
+        transform: translateY(200px);
       }
       75% {
         transform: translateY(0);
       }
       100% {
-        transform: translateY(-135px);
+        transform: translateY(-200px);
+      }
+    }
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.1;
+      }
+      100% {
+        opacity: 1;
       }
     }
   </style>
   <script type="text/javascript">
+    window.onload = () => {
+      setInterval('updateTime()',1000);
+
+      /* 名前入力時の処理 */
+      const nameButton = document.querySelector("#name-button");
+      nameButton.addEventListener("click", updateName);
+
+    }
+
+    /**
+     * SNS の表示名をアップデートする関数
+     */
+    const updateName = () => {
+      const name = document.querySelector("#name");
+      const plateBodyId = document.querySelector("#plate-body_id_content");
+      plateBodyId.textContent = '@' + String(`${name.value}`);
+    }
+
+    const updateTime = () => {
+      /* 現在日時の取得処理 */
+      const date = new Date();
+      const month = date.getMonth();
+      const day = date.getDate();
+      const dayOfWeekEnum = date.getDay();
+      const days = ['Sun','Mon','Tue','Web','Thu','Fri','Sat'];
+      const dayOfWeek = days[dayOfWeekEnum];
+      let hour = date.getHours();
+      if (hour < 10) {
+        hour = '0' + String(hour);
+      }
+      let minutes = date.getMinutes();
+      if (minutes < 10) {
+        minutes = '0' + String(minutes);
+      }
+      let second = date.getSeconds();
+      if (second < 10) {
+        second = '0' + String(second);
+      }
+      const clock = document.querySelector("#clock");
+      clock.textContent = `${month + 1}/${day}(${dayOfWeek}) ${hour}:${minutes}:${second}`
+
+    }
   </script>
 </head>
 <body>
   <div class="plate-body">
     <div class="plate-body_contents">
       <div class="plate-body_id">
-        <p>@Hello World</p>
+        <p id="plate-body_id_content">@Input your SNS ID</p>
       </div>
       <div class="plate-body_live">
-        <p>Live</p>
+        <div class="plate-body_live_wave">
+          <div class="plate-body_live_wave1">
+            <div class="circle"></div>
+          </div>
+          <div class="plate-body_live_wave2">
+            <div class="circle"></div>
+          </div>
+        </div>
+        <p>Live Streaming</p>
       </div>
       <div class="plate-body_clock">
-        <p>10:10</p>
+        <p id="clock"></p>
       </div>
     </div>
   </div>
+  <input type="text" id="name" name="name" placeholder="input your sns id">
+  <input type="button" id="name-button" value="enter" />
 </body>
 </html>
